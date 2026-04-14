@@ -2,7 +2,8 @@ local module = {
 	Storage = {}
 }
 
-function module:Connect(Time, Function, Condition)
+local MainLoopExists = false
+function module:Connect(Time, Function, Condition, MainLoop)
 	local CreateLoop = {}
 	CreateLoop.ID = game:GetService('HttpService'):GenerateGUID(false)
 	CreateLoop.Function = Function
@@ -14,6 +15,9 @@ function module:Connect(Time, Function, Condition)
 	end
 
 	CreateLoop.Condition = Condition
+	CreateLoop.MainLoop = MainLoop
+
+	if MainLoop then MainLoopExists = true end
 
 	function CreateLoop:Disconnect()
 		if module.Storage[CreateLoop.ID] then
@@ -46,8 +50,10 @@ task.defer(function()
 				if Connection.Condition then
 					local ConditionMet = Connection.Condition()
 					if not ConditionMet then
-						DisableLoopxd = true
-						DisconnectAll()
+						if Connection.MainLoop or not MainLoopExists then
+							DisableLoopxd = true
+							DisconnectAll()
+						end
 						return
 					end
 				end
