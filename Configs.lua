@@ -7,6 +7,7 @@ local Configs = {
 }
 
 function Configs:Init(OptionFolderPath, Options)
+  local InitDone = false
   for OptionId, OptionTable in Options do
       if not isfile or not writefile or not readfile then continue end
       if typeof(OptionTable) ~= "table" or not OptionTable.SetValue or not OptionTable.OnChanged then continue end
@@ -45,7 +46,7 @@ function Configs:Init(OptionFolderPath, Options)
       end
 
       OptionTable:OnChanged(function(...)
-          if not Manager.Cache.InitDone then return end
+          if not InitDone then return end
 
           local AllVals = {...}
 
@@ -63,6 +64,8 @@ function Configs:Init(OptionFolderPath, Options)
 
       task.wait(0)
   end
+  InitDone = true
+  return InitDone
 end
 
 return Configs
