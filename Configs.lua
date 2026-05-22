@@ -12,7 +12,7 @@ function Configs:Init(OptionFolderPath, Options)
       if not isfile or not writefile or not readfile then continue end
       if typeof(OptionTable) ~= "table" or not OptionTable.SetValue or not OptionTable.OnChanged then continue end
 
-      Cache[OptionId] = {
+      Configs.Cache[OptionId] = {
         Changed = OptionTable.Changed,
       }
 
@@ -50,7 +50,7 @@ function Configs:Init(OptionFolderPath, Options)
 
           local AllVals = {...}
 
-          local OldChanged = Cache[OptionId] and Cache[OptionId].Changed
+          local OldChanged = Configs.Cache[OptionId] and Configs.Cache[OptionId].Changed
           if OldChanged then
               task.spawn(function()
                   OldChanged(unpack(AllVals))
