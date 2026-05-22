@@ -8,6 +8,13 @@ local Configs = {
 
 function Configs:Init(OptionFolderPath, Options)
   local InitDone = false
+
+  if not isfolder(OptionFolderPath) then
+      print("Creating config folder...")
+      makefolder(OptionFolderPath)
+      print("Created config folder successfully!")
+  end
+  
   for OptionId, OptionTable in Options do
       if not isfile or not writefile or not readfile then continue end
       if typeof(OptionTable) ~= "table" or not OptionTable.SetValue or not OptionTable.OnChanged then continue end
@@ -64,6 +71,8 @@ function Configs:Init(OptionFolderPath, Options)
 
       task.wait(0)
   end
+
+  print("Config system loaded.")
   InitDone = true
   return InitDone
 end
