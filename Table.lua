@@ -12,4 +12,19 @@ function module:Size(Table)
     return Size
 end
 
+function module:LoadFolder(Folder, Data, IgnoreTable: {})
+    IgnoreTable = IgnoreTable or {}
+
+    for _, Child in ipairs(Folder:GetChildren()) do
+        if table.find(IgnoreTable, Child) then continue end
+
+        if Child:IsA("Folder") then
+            Data[Child.Name] = Data[Child.Name] or {}
+            Manager.Utils.Table:LoadFolder(Child, Data[Child.Name], IgnoreTable)
+        elseif Child:IsA("ValueBase") then
+            Data[Child.Name] = Child.Value
+        end
+    end
+end
+
 return module
