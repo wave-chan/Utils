@@ -3,4 +3,5 @@ return {
   Loop = loadstring(game:HttpGet("https://raw.githubusercontent.com/wave-chan/Utils/refs/heads/main/Loop.lua"))(),
   Character = loadstring(game:HttpGet("https://raw.githubusercontent.com/wave-chan/Utils/refs/heads/main/Character.lua"))(),
   Table = loadstring(game:HttpGet("https://raw.githubusercontent.com/wave-chan/Utils/refs/heads/main/Table.lua"))(),
+  Instance = loadstring(game:HttpGet("https://raw.githubusercontent.com/wave-chan/Utils/refs/heads/main/Instance.lua"))(),
 }
